@@ -1,0 +1,34 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+.CODE
+MAIN PROC
+    MOV AX,10  ;INPUT
+    MOV BL,3
+    DIV BL
+    
+    MOV BL,AL  ;STORE VALUE FOR SAFETY RESULT
+    MOV BH,AH  ;REMAINDER
+    
+    ADD BL,48
+    ADD BH,48    ;HUMAM READABLE FORM
+    
+    MOV AH,2
+    MOV DL,BL      ;DISPLAY RESULT
+    INT 21H
+    
+    MOV AH,2
+    MOV DL,10
+    INT 21H    ;NEWLINE
+    MOV DL,13
+    INT 21H
+    
+    MOV DL,BH       ;DISPLAY REMAINDER
+    INT 21H
+    
+    MOV AH,4CH        ;BACK TO OS
+    INT 21H
+    
+    MAIN ENDP
+END MAIN 
+    

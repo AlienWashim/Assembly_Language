@@ -1,0 +1,40 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+N DB 'THIS IS YOU RESULT: $' ;MESSAGE FORMAT
+A DW 2
+B DW 3
+NEWLINE DB 0DH,0AH,"$"
+.CODE
+MAIN PROC
+                               ;DB= 8 BIT, DW=DATA WORD 16BIT         ;LEA=LOAD EFFECTIVE ADDRESS
+    
+    MOV AX,@DATA  ;LOAD DATA
+    MOV DS,AX     ;
+    
+    MOV AX,A
+    MUL B
+    AAM ;MULTI VALUE
+    
+    MOV BL,AL
+    ADD BL,48
+    
+    MOV AH,9   ;MEASSAGE PRINT
+    LEA DX,N
+    INT 21H
+    
+    MOV AH,9   ;NEWLINE
+    LEA DX,NEWLINE
+    INT 21H
+    
+    MOV AH,2     ;DISPLAY RESULT
+    MOV DL,BL
+    INT 21H
+    
+    
+    MOV AH,4CH        ;BACK TO OS
+    INT 21H
+    
+    MAIN ENDP
+END MAIN 
+    

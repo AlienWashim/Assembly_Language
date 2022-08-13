@@ -1,0 +1,40 @@
+INCLUDE 'EMU8086.INC'
+.MODEL SMALL
+.STACK 100H
+.DATA
+.CODE
+MAIN PROC
+    
+    PRINT 'ENTER YOUR LOOP COUNTER: '
+    
+    MOV AH,1
+    INT 21H
+    MOV AH,0
+    MOV CX,AX
+    SUB CX,48
+    CMP CX,0
+    JMP FINISH
+    
+    MOV AH,2
+    MOV DL,10
+    INT 21H
+    MOV DL,13
+    INT 21H
+    
+    MOV BX,1
+    CLASSD2:
+    MOV AH,2
+    MOV DX,BX
+    ADD DX,48
+    INT 21H
+    INC BX
+    
+    LOOP CLASSD2
+    
+    
+    FINISH:
+    MOV AH,4CH
+    INT 21H
+    
+    MAIN ENDP
+END MAIN
