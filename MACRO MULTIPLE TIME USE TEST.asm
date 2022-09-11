@@ -1,0 +1,58 @@
+SHOW MACRO A,B
+    
+    PRINTN
+    PRINT 'SUM = '
+    MOV BX,B
+    MOV AX,A
+    ADD AX,BX
+    CALL PRINT_NUM
+    PRINTN
+    
+    SHOW ENDM
+
+INCLUDE 'EMU8086.INC'
+.MODEL LARGE
+.STACK 1000H 
+.DATA
+ A DW ?
+ B DW ?
+.CODE
+MAIN PROC
+    
+    MOV AX,@DATA
+    MOV DS,AX
+    
+    CALL INPUT
+    SHOW A,B
+    
+    CONT:
+    
+    CALL INPUT
+    SHOW A,B
+    
+    EXIT:
+    MOV AH,4CH
+    INT 21H
+    MAIN ENDP
+    
+    DEFINE_SCAN_NUM
+    DEFINE_PRINT_NUM
+    DEFINE_PRINT_NUM_UNS
+    
+    
+    INPUT PROC
+        
+    PRINT 'ENTER A = '
+    CALL SCAN_NUM
+    MOV A,CX
+    PRINTN
+    
+    PRINT 'ENTER A = '
+    CALL SCAN_NUM
+    MOV B,CX
+    PRINTN
+    
+    RET
+        INPUT ENDP
+    
+END MAIN

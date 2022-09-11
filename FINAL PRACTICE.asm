@@ -1,0 +1,62 @@
+
+INCLUDE 'EMU8086.INC'
+.MODEL SMALL
+.STACK 100H
+.DATA
+A DW ?
+ARR DB ?
+.CODE
+MAIN PROC
+    
+    MOV AX,@DATA
+    MOV DS,AX
+    
+    ;LEA SI,ARR
+    MOV SI,OFFSET ARR
+    
+    PRINT 'ENTER SIZE: '
+    CALL SCAN_NUM
+    MOV A,CX
+    
+    MOV SI,OFFSET ARR
+    MOV BX,CX
+    PRINT 'ENTER ARRAY VALUES: '
+    LEV:
+    CMP BX,0
+    JE PRI
+    CALL SCAN_NUM
+    MOV [SI],CL
+    INC SI
+    DEC BX
+    PRINT ' '
+    LOOP LEV
+    
+    PRI:
+    PRINTN
+    MOV BX,A
+    MOV SI,OFFSET ARR
+    PRINT 'INPUT : '
+    
+    SHOW:
+    CMP BX,0
+    JE EXIT
+    MOV AH,2
+    MOV DX,[SI]
+    INT 21H
+    INC SI
+    PRINT ' '
+    DEC BX
+    LOOP SHOW
+    
+    
+    EXIT:
+    MOV AH,4CH
+    INT 21H
+    
+    MAIN ENDP
+
+    DEFINE_SCAN_NUM    
+    DEFINE_PRINT_NUM
+    DEFINE_PRINT_NUM_UNS
+    
+END MAIN

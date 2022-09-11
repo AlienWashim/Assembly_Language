@@ -15,18 +15,18 @@ MAIN PROC
     
     MOV CX,9 
     
-    PRINTN
+    ;PRINTN
        
     
     MOV SI,OFFSET AR
     
     
     
-    PRINT 'DATA: '
+    ;PRINT 'DATA: '
     
     PRI:
     MOV AH,2
-    MOV DX,[SI]
+    MOV DL,[SI]
     INT 21H
     INC SI
     LOOP PRI
@@ -35,9 +35,6 @@ MAIN PROC
     EXIT:
     MOV AH,4CH
     INT 21H
-    
-    COMP:
-    MOV B,
     
     
     MAIN ENDP

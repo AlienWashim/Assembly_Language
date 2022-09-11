@@ -38,7 +38,6 @@ SHOW MACRO
     
     JMP EXIT
     
-    RET
     SHOW ENDM
 
 INCLUDE 'EMU8086.INC'
